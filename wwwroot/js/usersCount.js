@@ -1,6 +1,10 @@
 //create connection
 
-var connectionUserAccount = new signalR.HubConnectionBuilder().withUrl("/hubs/userCount").build();
+var connectionUserAccount = new signalR.HubConnectionBuilder()
+    .withUrl("/hubs/userCount", signalR.HttpTransportType.WebSockets)
+    .configureLogging(signalR.LogLevel.Information)
+    // changing Transport Type => .withUrl("/hubs/userCount", signalR.HttpTransportType.ServerSentEvents)
+    .build();
 
 connectionUserAccount.on("updateTotalViews", (value)=> {
     var newCountSpan = document.getElementById("totalViewsCounter");
