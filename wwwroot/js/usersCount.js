@@ -6,11 +6,16 @@ var connectionUserAccount = new signalR.HubConnectionBuilder()
     // changing Transport Type => .withUrl("/hubs/userCount", signalR.HttpTransportType.ServerSentEvents)
     .build();
 
-connectionUserAccount.on("updateTotalViews", (value)=> {
-    var newCountSpan = document.getElementById("totalViewsCounter");
-    newCountSpan.innerText = value.toString();
-});
-
+    connectionUserAccount.on("updateTotalViews", (value)=> {
+        var newCountSpan = document.getElementById("totalViewsCounter");
+        newCountSpan.innerText = value.toString();
+    });
+    
+    connectionUserAccount.on("updateTotalUsers", (value)=> {
+        var newCountSpan = document.getElementById("totalUsersCounter");
+        newCountSpan.innerText = value.toString();
+    });
+    
 function newWindowLoadedOnClient(){
     connectionUserAccount.send("NewWindowLoaded");
 }
